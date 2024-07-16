@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:todo_aap/customExtension/customExtension.dart';
+import 'package:todo_aap/screens/todoScreen.dart';
+import 'package:todo_aap/services/apiService.dart';
+import 'package:todo_aap/theme/myColors.dart';
+import 'package:todo_aap/widgets/customElevatedButton.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -8,44 +14,153 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _isLoading = false;
+  bool obscureText = true;
+  final TextStyle textStyle = const TextStyle(
+      color: ColorTheme.titleColor, fontSize: 16, fontWeight: FontWeight.w400);
+
+  Future<void> _login() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    final user = await ApiService()
+        .authenticate(_usernameController.text, _passwordController.text);
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (user != null) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (builder) => TodoScreen()));
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('Invalid username or password.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Center(
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Spacer(),
-              Image.asset('assets/discord_logo.png'),
-              Image.asset('assets/illustration.png'),
-              const SizedBox(
-                height: 40,
-              ),
-              const Text(
-                'Welcome to Discord',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'Join over 100 million people who use Discord to talk with communities and friends.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-              ElevatedButton(onPressed: () {}, child: Text('Daket')),
-              ElevatedButton(onPressed: () {}, child: Text('Daket'))
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {},
         ),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Center(
+            child: Text(
+              'Welcome back!',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Center(
+            child: Text('We’re so excited to see you again!',
+                style: GoogleFonts.hankenGrotesk(
+                  textStyle: const TextStyle(
+                    fontSize: 16,
+                    color: ColorTheme.greySemi,
+                  ),
+                )),
+          ),
+          const SizedBox(height: 30),
+          const Text(
+            'ACCOUNT INFORMATION',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey,
+            ),
+          ).padAll(12),
+          const SizedBox(height: 10),
+
+          ///Username
+          TextFormField(
+            controller: _usernameController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              labelText: 'Email or phone number',
+              filled: true,
+              fillColor: Colors.grey[200],
+            ),
+          ).padSymmetric(horizontal: 12),
+          const SizedBox(height: 20),
+
+          ///password
+          TextFormField(
+            controller: _passwordController,
+            obscureText: obscureText,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                labelText: 'Password',
+                filled: true,
+                fillColor: Colors.grey[200],
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      obscureText = !obscureText;
+                    });
+                  },
+                  icon: Icon(
+                      obscureText ? Icons.visibility_off : Icons.visibility),
+                )),
+          ).padSymmetric(horizontal: 12),
+          const SizedBox(height: 10),
+
+          ///forgotPassword
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(
+              onPressed: () {},
+              child: const Text(
+                'Forgot your password?',
+                style: TextStyle(color: Colors.blue),
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+
+          ///LogIn Button
+          Center(
+            child: _isLoading
+                ? const CircularProgressIndicator()
+                : Center(
+                    child: CustomElevatedButton(
+                        textSize: 14,
+                        width: 390,
+                        borderRadius: BorderRadius.circular(3),
+                        text: 'LogIn',
+                        onPressed: _login),
+                  ),
+          ),
+        ],
       ),
     );
   }

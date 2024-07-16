@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_aap/screens/loginScreen.dart';
+import 'package:todo_aap/screens/authScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LogInScreen(),
+      home: const AuthScreen(),
     );
   }
 }

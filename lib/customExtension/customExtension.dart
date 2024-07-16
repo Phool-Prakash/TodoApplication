@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 ///Padding
 extension PaddingExtension on Widget {
-
   ///add uniform padding around the widget
   Widget padAll(double value) => Padding(
         padding: EdgeInsets.all(value),
@@ -12,10 +11,11 @@ extension PaddingExtension on Widget {
   ///add vertical and horizontal padding to the widget
   Widget padSymmetric({double vertical = 0.0, double horizontal = 0.0}) =>
       Padding(
-          padding:
-              EdgeInsets.symmetric(vertical: vertical, horizontal: horizontal));
+        padding:
+            EdgeInsets.symmetric(vertical: vertical, horizontal: horizontal),
+        child: this,
+      );
 }
-
 
 ///Border
 extension BorderExtension on Widget {
@@ -25,4 +25,6 @@ extension BorderExtension on Widget {
             BoxDecoration(border: Border.all(color: color, width: width)),
         child: this,
       );
+
+  Widget sizeHeight(double value) => SizedBox(height: value,child: this,);
 }
