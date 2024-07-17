@@ -16,6 +16,7 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -54,15 +55,17 @@ class _AuthScreenState extends State<AuthScreen> {
 
               ///Register Button
               CustomElevatedButton(
-                  width: 335,
+                height: 58,
+                  width: screenWidth,
                   borderRadius: BorderRadius.circular(3),
                   text: 'Register',
                   textSize: 14,
-                  onPressed: () {}),
+                  onPressed: () {}).padSymmetric(horizontal: 8.0).padAll(8),
 
               ///LogInButton
               CustomElevatedButton(
-                  width: 335,
+                  width: screenWidth,
+                  height: 58,
                   borderRadius: BorderRadius.circular(3),
                   buttonColor: ColorTheme.buttonGrey,
                   text: 'LogIn',
@@ -72,7 +75,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (builder) => const LogInScreen()));
-                  })
+                  }).padSymmetric(horizontal: 8.0).padAll(8)
             ],
           ),
         ),

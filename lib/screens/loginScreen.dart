@@ -14,18 +14,27 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
+  ///Controllers
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  ///CircleIndicator
   bool _isLoading = false;
+
+  //passwordVisibility
   bool obscureText = true;
+
+  ///TextStyle
   final TextStyle textStyle = const TextStyle(
       color: ColorTheme.titleColor, fontSize: 16, fontWeight: FontWeight.w400);
 
+  ///LogInFunction
   Future<void> _login() async {
     setState(() {
       _isLoading = true;
     });
 
+    ///ApiServiceCall
     final user = await ApiService()
         .authenticate(_usernameController.text, _passwordController.text);
 
@@ -37,17 +46,18 @@ class _LogInScreenState extends State<LogInScreen> {
       Navigator.push(
           context, MaterialPageRoute(builder: (builder) => TodoScreen()));
     } else {
+      ///Dialog
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Error'),
-          content: Text('Invalid username or password.'),
+          title: const Text('Error'),
+          content: const Text('Invalid username or password.'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         ),
@@ -87,6 +97,8 @@ class _LogInScreenState extends State<LogInScreen> {
                 )),
           ),
           const SizedBox(height: 30),
+
+          ///AccountInfo
           const Text(
             'ACCOUNT INFORMATION',
             style: TextStyle(
@@ -111,7 +123,7 @@ class _LogInScreenState extends State<LogInScreen> {
           ).padSymmetric(horizontal: 12),
           const SizedBox(height: 20),
 
-          ///password
+          ///Password
           TextFormField(
             controller: _passwordController,
             obscureText: obscureText,
@@ -153,11 +165,13 @@ class _LogInScreenState extends State<LogInScreen> {
                 ? const CircularProgressIndicator()
                 : Center(
                     child: CustomElevatedButton(
-                        textSize: 14,
-                        width: 390,
-                        borderRadius: BorderRadius.circular(3),
-                        text: 'LogIn',
-                        onPressed: _login),
+                            height: 58,
+                            textSize: 14,
+                            width: MediaQuery.of(context).size.width,
+                            borderRadius: BorderRadius.circular(3),
+                            text: 'LogIn',
+                            onPressed: _login)
+                        .padAll(10),
                   ),
           ),
         ],

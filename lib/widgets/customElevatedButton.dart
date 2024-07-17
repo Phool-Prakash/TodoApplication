@@ -52,7 +52,7 @@ class CustomElevatedButton extends StatelessWidget {
                     letterSpacing: letterSpacing ?? .5,
                     fontSize: textSize ?? 12,
                     color: textColor ?? ColorTheme.whiteBold),
-          )).padAll(8),
+          )),
     );
   }
 }
