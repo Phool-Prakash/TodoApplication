@@ -55,12 +55,14 @@ class _AuthScreenState extends State<AuthScreen> {
 
               ///Register Button
               CustomElevatedButton(
-                height: 58,
-                  width: screenWidth,
-                  borderRadius: BorderRadius.circular(3),
-                  text: 'Register',
-                  textSize: 14,
-                  onPressed: () {}).padSymmetric(horizontal: 8.0).padAll(8),
+                      height: 58,
+                      width: screenWidth,
+                      borderRadius: BorderRadius.circular(3),
+                      text: 'Register',
+                      textSize: 14,
+                      onPressed: () {})
+                  .padSymmetric(horizontal: 8.0)
+                  .padAll(8),
 
               ///LogInButton
               CustomElevatedButton(
