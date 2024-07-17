@@ -1,16 +1,30 @@
 # todo_aap
 
-A new Flutter project.
+//Step1
+flutter pub get
 
-## Getting Started
+//Step2
+flutter run
 
-This project is a starting point for a Flutter application.
+//LogIn info
+username: emilys
+password: emilyspass
 
-A few resources to get you started if this is your first Flutter project:
+///File Structure (Design Pattern MVC(Model view controller))
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+  //1. CustomExtension(For padding,margin and BorderRadius)
+  //2. models
+       //userModel
+       //todoModel
+  //3. screens
+       //authScreen(Register and LogIn)
+       //logInScreen(username and password)
+       //todoScreen (mark complete and delete)
+       //addTodoScreen(add new todo)
+       
+  //4. service (apiService or apiCalls)
+  //5. Theme(color and style)
+  //6. utils(main base apiCall0
+  //7. widget(customWidgets)
+       
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
