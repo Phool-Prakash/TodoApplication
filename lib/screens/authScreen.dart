@@ -77,7 +77,8 @@ class _AuthScreenState extends State<AuthScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (builder) => const LogInScreen()));
-                  }).padSymmetric(horizontal: 8.0).padAll(8)
+                  }).padSymmetric(horizontal: 8.0).padAll(8),
+              CustomElevatedButton(text: 'Custom', onPressed: (){}).padAll(8.0)
             ],
           ),
         ),

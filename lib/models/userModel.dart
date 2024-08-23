@@ -12,9 +12,8 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
         userName: json['username'],
-        token: json['token'],
-
         ///This is not required
+        token: json['token'],
         refreshToken: json['refreshToken']);
   }
 
